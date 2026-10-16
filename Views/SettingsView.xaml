@@ -1,0 +1,75 @@
+<UserControl x:Class="ddeprivedd.os.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ScrollViewer Style="{StaticResource SmoothScroll}">
+        <StackPanel x:Name="PageRoot" Margin="36,8,36,36">
+
+            <StackPanel>
+                <TextBlock Style="{StaticResource PageTitle}" Text="Settings"/>
+                <TextBlock Style="{StaticResource PageSubtitle}"
+                           Text="Tune how ddeprivedd.os behaves. Changes save automatically."/>
+            </StackPanel>
+
+            <!-- Updates -->
+            <ContentControl Style="{StaticResource Card}" Margin="0,28,0,0">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource CardTitle}" Text="Updates" Margin="0,0,0,6"/>
+                    <TextBlock x:Name="UpdateVersionText" Style="{StaticResource BodyMuted}" Margin="0,0,0,18"/>
+                    <CheckBox x:Name="AutoUpdateBox" Style="{StaticResource Switch}" Content="Install updates automatically"
+                              Checked="AutoUpdate_Changed" Unchecked="AutoUpdate_Changed" Margin="0,0,0,20"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="UpdateActionButton" Style="{StaticResource PrimaryButton}"
+                                Background="{StaticResource AccentBrush}" Content="Check for updates"
+                                MinWidth="190" Click="UpdateActionButton_Click"/>
+                        <TextBlock x:Name="UpdateStatusText" Style="{StaticResource BodyMuted}"
+                                   VerticalAlignment="Center" Margin="18,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </ContentControl>
+
+            <!-- General -->
+            <ContentControl Style="{StaticResource Card}" Margin="0,22,0,0">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource CardTitle}" Text="General" Margin="0,0,0,20"/>
+                    <CheckBox x:Name="StartupCleanupBox" Style="{StaticResource Switch}" Content="Enable startup cleanup"
+                              Checked="SettingChanged" Unchecked="SettingChanged" Margin="0,0,0,18"/>
+                    <CheckBox x:Name="LaunchOnStartupBox" Style="{StaticResource Switch}" Content="Launch on startup"
+                              Checked="SettingChanged" Unchecked="SettingChanged" Margin="0,0,0,18"/>
+                    <CheckBox x:Name="AutoTempCleanBox" Style="{StaticResource Switch}" Content="Auto clean temp files"
+                              Checked="SettingChanged" Unchecked="SettingChanged"/>
+                </StackPanel>
+            </ContentControl>
+
+            <!-- Optimization -->
+            <ContentControl Style="{StaticResource Card}" Margin="0,22,0,0">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource CardTitle}" Text="Optimization" Margin="0,0,0,20"/>
+                    <CheckBox x:Name="OptimizationTweaksBox" Style="{StaticResource Switch}" Content="Enable optimization tweaks"
+                              Checked="SettingChanged" Unchecked="SettingChanged" Margin="0,0,0,18"/>
+                    <CheckBox x:Name="ReduceBackgroundBox" Style="{StaticResource Switch}" Content="Reduce background usage"
+                              Checked="SettingChanged" Unchecked="SettingChanged" Margin="0,0,0,18"/>
+                    <CheckBox x:Name="AutoRamCleanupBox" Style="{StaticResource Switch}" Content="Auto RAM cleanup"
+                              Checked="SettingChanged" Unchecked="SettingChanged"/>
+                </StackPanel>
+            </ContentControl>
+
+            <!-- Performance -->
+            <ContentControl Style="{StaticResource Card}" Margin="0,22,0,0">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource CardTitle}" Text="Performance boost" Margin="0,0,0,20"/>
+                    <CheckBox x:Name="PerformanceBoostBox" Style="{StaticResource Switch}" Content="Enable performance boosting"
+                              Checked="SettingChanged" Unchecked="SettingChanged" Margin="0,0,0,18"/>
+                    <CheckBox x:Name="FPSBoostBox" Style="{StaticResource Switch}" Content="Enable FPS Booster"
+                              Foreground="{StaticResource AccentSoftBrush}" FontWeight="Bold"
+                              Checked="SettingChanged" Unchecked="SettingChanged" Margin="0,0,0,18"/>
+                    <CheckBox x:Name="GameModeBox" Style="{StaticResource Switch}" Content="Enable Game Mode"
+                              Checked="SettingChanged" Unchecked="SettingChanged" Margin="0,0,0,18"/>
+                    <CheckBox x:Name="CpuPriorityBox" Style="{StaticResource Switch}" Content="Boost CPU priority"
+                              Checked="SettingChanged" Unchecked="SettingChanged"/>
+                </StackPanel>
+            </ContentControl>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

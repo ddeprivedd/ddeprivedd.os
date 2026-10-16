@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>ddeprivedd.os</AssemblyName>
+    <RootNamespace>ddeprivedd.os</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Version>3.1.0.0</Version>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Used for ComputerInfo (RAM usage) on the Monitor page -->
+    <Reference Include="Microsoft.VisualBasic" />
+    <!-- Tray icon (minimize to tray) -->
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+    <!-- Auto-update (GitHub releases) -->
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web.Extensions" />
+  </ItemGroup>
+
+</Project>

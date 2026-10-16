@@ -1,0 +1,107 @@
+<UserControl x:Class="ddeprivedd.os.Views.RamLimiterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ScrollViewer Style="{StaticResource SmoothScroll}">
+        <StackPanel x:Name="PageRoot" Margin="36,8,36,36">
+
+            <StackPanel>
+                <TextBlock Style="{StaticResource PageTitle}" Text="RAM Limiter"/>
+                <TextBlock Style="{StaticResource PageSubtitle}"
+                           Text="Keeps memory-hungry apps small by trimming their RAM in the background. Numbers update live."/>
+            </StackPanel>
+
+            <!-- System memory -->
+            <ContentControl Style="{StaticResource Card}" Margin="0,28,0,0">
+                <StackPanel>
+                    <Grid>
+                        <TextBlock Style="{StaticResource CardTitle}" Text="System memory"/>
+                        <TextBlock x:Name="SystemText" Text="--" FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource AccentSoftBrush}" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <ProgressBar x:Name="SystemBar" Style="{StaticResource GlowProgress}" Margin="0,16,0,0" Value="0"/>
+                </StackPanel>
+            </ContentControl>
+
+            <!-- Shown only when the app is not running as administrator -->
+            <Border x:Name="AdminBanner" Margin="0,22,0,0" CornerRadius="16" Padding="20,16"
+                    Background="#22FBBF24" BorderBrush="#44FBBF24" BorderThickness="1" Visibility="Collapsed">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="Not running as administrator" FontWeight="SemiBold" FontSize="14"
+                                   Foreground="{StaticResource WarnBrush}"/>
+                        <TextBlock Style="{StaticResource BodyMuted}" TextWrapping="Wrap" Margin="0,4,0,0"
+                                   Text="Many games and launchers (Rocket League, Java apps started as admin, and so on) can only be limited with admin rights."/>
+                    </StackPanel>
+                    <Button Grid.Column="1" Style="{StaticResource PrimaryButton}" Content="Restart as admin"
+                            Background="{StaticResource RaisedBrush}" Margin="16,0,0,0" Click="Elevate_Click"/>
+                </Grid>
+            </Border>
+
+            <!-- Add a process -->
+            <ContentControl Style="{StaticResource Card}" Margin="0,22,0,0">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource CardTitle}" Text="Limit an app"/>
+                    <TextBlock Style="{StaticResource BodyMuted}" Margin="0,6,0,16"
+                               Text="Type the process name shown in Task Manager, like discord or chrome. It doesn't have to be open yet. Adding .exe is optional."/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="NameBox" Style="{StaticResource InputBox}"
+                                 Tag="Process name, for example discord" KeyDown="NameBox_KeyDown"/>
+                        <Button Grid.Column="1" Style="{StaticResource PrimaryButton}" Content="Add"
+                                Background="{StaticResource AccentGradient}" Margin="12,0,0,0"
+                                Click="Add_Click"/>
+                    </Grid>
+                    <TextBlock x:Name="Hint" Margin="4,10,0,0" FontSize="12.5" Opacity="0"
+                               Foreground="{StaticResource MutedBrush}" MinHeight="16"/>
+                </StackPanel>
+            </ContentControl>
+
+            <!-- Limited apps -->
+            <ContentControl Style="{StaticResource Card}" Margin="0,22,0,0">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource CardTitle}" Text="Limited apps"/>
+                        <Border CornerRadius="10" Background="#338B5CF6" Padding="10,2" Margin="12,0,0,0"
+                                VerticalAlignment="Center">
+                            <TextBlock x:Name="CountText" Text="0" FontWeight="Bold" FontSize="12.5"
+                                       Foreground="{StaticResource AccentSoftBrush}"/>
+                        </Border>
+                    </StackPanel>
+                    <TextBlock x:Name="IntervalText" Style="{StaticResource BodyMuted}" Margin="0,6,0,14"/>
+
+                    <!-- Column headers (same widths as the rows) -->
+                    <Grid x:Name="HeaderRow" Margin="14,0,8,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="34"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="NAME" FontSize="11.5" FontWeight="Bold" Foreground="{StaticResource MutedBrush}"/>
+                        <TextBlock Grid.Column="1" Text="STATUS" FontSize="11.5" FontWeight="Bold" Foreground="{StaticResource MutedBrush}"/>
+                        <TextBlock Grid.Column="2" Text="PROCESSES" FontSize="11.5" FontWeight="Bold" Foreground="{StaticResource MutedBrush}"/>
+                        <TextBlock Grid.Column="3" Text="MEMORY" FontSize="11.5" FontWeight="Bold" Foreground="{StaticResource MutedBrush}"/>
+                        <TextBlock Grid.Column="4" Text="LAST TRIM" FontSize="11.5" FontWeight="Bold" Foreground="{StaticResource MutedBrush}"/>
+                    </Grid>
+
+                    <Border x:Name="EmptyBox" Background="#FF0A0E26" CornerRadius="14" Padding="18">
+                        <TextBlock Text="Nothing is being limited yet. Add an app above to get started."
+                                   FontSize="13" TextWrapping="Wrap" Foreground="{StaticResource MutedBrush}"/>
+                    </Border>
+                    <StackPanel x:Name="LimitList"/>
+                </StackPanel>
+            </ContentControl>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

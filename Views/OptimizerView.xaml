@@ -1,0 +1,124 @@
+<UserControl x:Class="ddeprivedd.os.Views.OptimizerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ctl="clr-namespace:ddeprivedd.os.Controls">
+
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="ValGrad" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FFFF4655" Offset="0"/>
+            <GradientStop Color="#FFFF7A59" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="RobGrad" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FF3B6BFF" Offset="0"/>
+            <GradientStop Color="#FF38BDF8" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="AmdGrad" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FFFF6A00" Offset="0"/>
+            <GradientStop Color="#FFFFB347" Offset="1"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="ValGlow" Color="#FFFF4655"/>
+        <SolidColorBrush x:Key="RobGlow" Color="#FF3B6BFF"/>
+        <SolidColorBrush x:Key="AmdGlow" Color="#FFFF6A00"/>
+    </UserControl.Resources>
+
+    <ScrollViewer Style="{StaticResource SmoothScroll}">
+        <StackPanel x:Name="PageRoot" Margin="36,8,36,36">
+
+            <!-- Header -->
+            <StackPanel>
+                <TextBlock Style="{StaticResource PageTitle}" Text="Game Optimizer"/>
+                <TextBlock Style="{StaticResource PageSubtitle}"
+                           Text="Optimize your PC for maximum FPS and low latency."/>
+            </StackPanel>
+
+            <!-- Game cards -->
+            <Grid Margin="0,28,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <ContentControl Grid.Column="0" Style="{StaticResource GameCard}" Tag="{StaticResource ValGlow}"
+                                Margin="0,0,10,0">
+                    <StackPanel>
+                        <Border Width="52" Height="52" CornerRadius="16" HorizontalAlignment="Left"
+                                Background="{StaticResource ValGrad}">
+                            <TextBlock Text="V" FontSize="24" FontWeight="Bold" Foreground="White"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="VALORANT" Style="{StaticResource CardTitle}" FontSize="22" Margin="0,18,0,0"/>
+                        <TextBlock Style="{StaticResource BodyMuted}" Margin="0,8,0,0" MinHeight="54"
+                                   Text="Maximum FPS, reduced latency and lower memory usage."/>
+                        <Button x:Name="ValorantBtn" Style="{StaticResource PrimaryButton}" Content="OPTIMIZE VALORANT"
+                                Background="{StaticResource ValGrad}" Margin="0,20,0,0"
+                                Click="ValorantOptimize_Click"/>
+                    </StackPanel>
+                </ContentControl>
+
+                <ContentControl Grid.Column="1" Style="{StaticResource GameCard}" Tag="{StaticResource RobGlow}"
+                                Margin="5,0,5,0">
+                    <StackPanel>
+                        <Border Width="52" Height="52" CornerRadius="16" HorizontalAlignment="Left"
+                                Background="{StaticResource RobGrad}">
+                            <TextBlock Text="R" FontSize="24" FontWeight="Bold" Foreground="White"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="ROBLOX" Style="{StaticResource CardTitle}" FontSize="22" Margin="0,18,0,0"/>
+                        <TextBlock Style="{StaticResource BodyMuted}" Margin="0,8,0,0" MinHeight="54"
+                                   Text="Better frame pacing, reduced lag and faster gameplay."/>
+                        <Button x:Name="RobloxBtn" Style="{StaticResource PrimaryButton}" Content="OPTIMIZE ROBLOX"
+                                Background="{StaticResource RobGrad}" Margin="0,20,0,0"
+                                Click="RobloxOptimize_Click"/>
+                    </StackPanel>
+                </ContentControl>
+
+                <ContentControl Grid.Column="2" Style="{StaticResource GameCard}" Tag="{StaticResource AmdGlow}"
+                                Margin="10,0,0,0">
+                    <StackPanel>
+                        <Border Width="52" Height="52" CornerRadius="16" HorizontalAlignment="Left"
+                                Background="{StaticResource AmdGrad}">
+                            <TextBlock Text="A" FontSize="24" FontWeight="Bold" Foreground="White"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="AMD OPTIMIZER" Style="{StaticResource CardTitle}" FontSize="22" Margin="0,18,0,0"/>
+                        <TextBlock Style="{StaticResource BodyMuted}" Margin="0,8,0,0" MinHeight="54"
+                                   Text="AMD GPU tuning, shader cleanup and an FPS boost."/>
+                        <Button x:Name="AmdBtn" Style="{StaticResource PrimaryButton}" Content="OPTIMIZE AMD"
+                                Background="{StaticResource AmdGrad}" Margin="0,20,0,0"
+                                Click="AMDOptimize_Click"/>
+                    </StackPanel>
+                </ContentControl>
+            </Grid>
+
+            <!-- Background apps -->
+            <ContentControl Style="{StaticResource Card}" Margin="0,22,0,0">
+                <StackPanel>
+                    <Grid>
+                        <TextBlock Style="{StaticResource CardTitle}" Text="Background apps" VerticalAlignment="Center"/>
+                        <Button Style="{StaticResource PrimaryButton}" Content="Manage whitelist"
+                                HorizontalAlignment="Right" Height="36" Padding="16,0" FontSize="13"
+                                Click="ManageWhitelist_Click"/>
+                    </Grid>
+                    <TextBlock Style="{StaticResource BodyMuted}" Margin="0,6,0,16"
+                               Text="These apps are closed when you optimize. Whitelisted apps are always left running."/>
+                    <WrapPanel x:Name="Chips"/>
+                </StackPanel>
+            </ContentControl>
+
+            <!-- Status -->
+            <ContentControl Style="{StaticResource Card}" Margin="0,22,0,0">
+                <StackPanel>
+                    <Grid>
+                        <TextBlock Style="{StaticResource CardTitle}" Text="Optimization status"/>
+                        <TextBlock x:Name="PercentText" Text="0%" FontSize="18" FontWeight="Bold"
+                                   Foreground="{StaticResource AccentSoftBrush}" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <ProgressBar x:Name="Bar" Style="{StaticResource GlowProgress}" Margin="0,16,0,16" Value="0"/>
+                    <ctl:StatusLog x:Name="Log" Height="260"/>
+                </StackPanel>
+            </ContentControl>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
