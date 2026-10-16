@@ -1,7 +1,5 @@
 # ddeprivedd.os  v3.1 (WPF, .NET Framework 4.7.2)
 
-(formerly Peasure BoosterX, now with the RAM Limiter built in)
-
 ## Build the exe (Windows)
 1. Install the free **.NET SDK** (https://dotnet.microsoft.com/download). Any SDK 6.0 or newer works.
 2. Double-click **build.bat**. The first build downloads reference files, so you need internet once.
